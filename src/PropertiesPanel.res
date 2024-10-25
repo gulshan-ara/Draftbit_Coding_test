@@ -54,12 +54,51 @@ module ViewExamples = {
   }
 }
 
+module ViewMargins = {
+  type margin = {
+    id: int,
+    margin_top: int,
+    margin_bottom: int,
+    margin_left: int,
+    margin_right: int,
+  }
+
+  @react.component
+  let make = () => {
+    let (margin: option<array<margin>>, setMargin) = React.useState(_ => None)
+
+    React.useEffect1(() => {
+      // Fetch the data from /examples and set the state when the promise resolves
+      Fetch.fetchJson(`http://localhost:12346/margins`)
+      |> Js.Promise.then_(marginJson => {
+        // NOTE: this uses an unsafe type cast, as safely parsing JSON in rescript is somewhat advanced.
+        Js.Promise.resolve(setMargin(_ => Some(Obj.magic(marginJson))))
+      })
+      // The "ignore" function is necessary because each statement is expected to return `unit` type, but Js.Promise.then return a Promise type.
+      |> ignore
+      None
+    }, [setMargin])
+
+    <div>
+      {switch margin {
+      | None => React.string("Loading margins....")
+      | Some(margin) =>
+        margin
+        ->Js.Array2.map(m=>
+          React.string(`Top: ${m.margin_top->Js.Int.toString}, Bottom: ${m.margin_bottom->Js.Int.toString}, Left: ${m.margin_bottom->Js.Int.toString}, Right: ${m.margin_bottom->Js.Int.toString}`)
+        )
+        ->React.array
+      }}
+    </div>
+  }
+}
+
 @genType @genType.as("PropertiesPanel") @react.component
 let make = () =>
   <aside className="PropertiesPanel">
     <Collapsible title="Load examples"> <ViewExamples /> </Collapsible>
     <Collapsible title="Margins & Padding">
-      <span> {React.string("TODO: build me!")} </span>
+      <span> <ViewMargins /> </span>
     </Collapsible>
     <Collapsible title="Size"> <span> {React.string("example")} </span> </Collapsible>
   </aside>
