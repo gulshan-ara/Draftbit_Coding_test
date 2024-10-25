@@ -23,3 +23,54 @@
 .Collapsible-content {
   margin: 8px;
 }
+
+.Prism-container {
+  position: "relative";
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: "center";
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+.margin-grid {
+  display: grid;
+  grid-template-areas:
+    ". top ."
+    "left center right"
+    ". bottom .";
+  grid-template-columns: auto 100px auto; 
+  grid-template-rows: auto 100px auto; 
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+}
+
+.margin-input {
+  width: 30px;
+  /* padding: 5px; */
+}
+
+.margin-input.top {
+  grid-area: top;
+}
+
+.margin-input.left {
+  grid-area: left;
+}
+
+.margin-input.right {
+  grid-area: right;
+}
+
+.margin-input.bottom {
+  grid-area: bottom;
+}
+
+.content-box {
+  grid-area: center;
+  width: 150px;
+  height: 100px;
+  background-color: #f0f0f0; 
+}

@@ -54,7 +54,7 @@ module ViewExamples = {
   }
 }
 
-module ViewMargins = {
+module Prism = {
   type margin = {
     id: int,
     margin_top: int,
@@ -79,17 +79,26 @@ module ViewMargins = {
       None
     }, [setMargin])
 
-    <div>
-      {switch margin {
+  <div className="Prism-container">
+  {
+      switch margin {
       | None => React.string("Loading margins....")
       | Some(margin) =>
         margin
-        ->Js.Array2.map(m=>
-          React.string(`Top: ${m.margin_top->Js.Int.toString}, Bottom: ${m.margin_bottom->Js.Int.toString}, Left: ${m.margin_bottom->Js.Int.toString}, Right: ${m.margin_bottom->Js.Int.toString}`)
+        ->Js.Array2.map(m =>
+          <div className="margin-grid">
+            <input className="margin-input top" type_="number" value={Js.Int.toString(m.margin_top)} />
+            <input className="margin-input left" type_="number" value={Js.Int.toString(m.margin_left)} />
+            <div className="content-box"></div>
+            <input className="margin-input right" type_="number" value={Js.Int.toString(m.margin_right)} />
+            <input className="margin-input bottom" type_="number" value={Js.Int.toString(m.margin_bottom)} />
+          </div>
         )
         ->React.array
-      }}
-    </div>
+      }
+    }
+  </div>
+
   }
 }
 
@@ -98,7 +107,7 @@ let make = () =>
   <aside className="PropertiesPanel">
     <Collapsible title="Load examples"> <ViewExamples /> </Collapsible>
     <Collapsible title="Margins & Padding">
-      <span> <ViewMargins /> </span>
+      <span> <Prism /> </span>
     </Collapsible>
     <Collapsible title="Size"> <span> {React.string("example")} </span> </Collapsible>
   </aside>
