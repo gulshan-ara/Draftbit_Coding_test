@@ -87,11 +87,18 @@ module Prism = {
         margin
         ->Js.Array2.map(m =>
           <div className="margin-grid">
-            <input className="margin-input top" type_="number" value={Js.Int.toString(m.margin_top)} />
-            <input className="margin-input left" type_="number" value={Js.Int.toString(m.margin_left)} />
-            <div className="content-box"></div>
-            <input className="margin-input right" type_="number" value={Js.Int.toString(m.margin_right)} />
-            <input className="margin-input bottom" type_="number" value={Js.Int.toString(m.margin_bottom)} />
+            <input className="margin-input top" type_="text" value={Js.Int.toString(m.margin_top)} />
+            <input className="margin-input left" type_="text" value={Js.Int.toString(m.margin_left)} />
+            <div className="content-box">
+              <div className="padding-grid">
+                <input className="padding-input top" type_="text" value={Js.Int.toString(m.margin_top)} />
+                <input className="padding-input left" type_="text" value={Js.Int.toString(m.margin_left)} />
+                <input className="padding-input right" type_="text" value={Js.Int.toString(m.margin_right)} />
+                <input className="padding-input bottom" type_="text" value={Js.Int.toString(m.margin_bottom)} />
+              </div>
+            </div>
+            <input className="margin-input right" type_="text" value={Js.Int.toString(m.margin_right)} />
+            <input className="margin-input bottom" type_="text" value={Js.Int.toString(m.margin_bottom)} />
           </div>
         )
         ->React.array
