@@ -54,6 +54,7 @@ module ViewExamples = {
   }
 }
 
+// Prism Component
 module Prism = {
   type marginPadding = {
     id: int,
@@ -71,19 +72,18 @@ module Prism = {
   let make = () => {
     let (margin: option<array<marginPadding>>, setMargin) = React.useState(_ => None)
 
+    // fetching default margin and padding value
     React.useEffect1(() => {
-      // Fetch the data from /examples and set the state when the promise resolves
       Fetch.fetchJson(`http://localhost:12346/margin-padding`)
       |> Js.Promise.then_(marginJson => {
         Js.log(marginJson)
-        // NOTE: this uses an unsafe type cast, as safely parsing JSON in rescript is somewhat advanced.
         Js.Promise.resolve(setMargin(_ => Some(Obj.magic(marginJson))))
       })
-      // The "ignore" function is necessary because each statement is expected to return `unit` type, but Js.Promise.then return a Promise type.
       |> ignore
       None
     }, [setMargin])
 
+    // function to handle value change of each input
     let handleInputChange = (id, field, value) => {
       switch margin {
       | None => ()
@@ -109,6 +109,7 @@ module Prism = {
       }
     }
 
+    // function to store changed value in database
     let updateDatabase = (id, updatedItem) => {
       let body = Js.Json.stringify(Js.Json.object_(updatedItem))
 
@@ -127,6 +128,7 @@ module Prism = {
       ) |> ignore
     }
 
+    // view rendering
     <div className="Prism-container">
       {switch margin {
       | None => React.string("Loading margins....")
