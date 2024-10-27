@@ -17,13 +17,19 @@ module Response = {
   external statusText: t => string = "statusText"
 }
 
-type options = {headers: Js.Dict.t<string>}
+type options = {
+  headers: Js.Dict.t<string>,
+  method: option<string>,
+  body: option<string>,
+}
 
 @val
 external fetch: (string, options) => Js.Promise.t<Response.t> = "fetch"
 
-let fetchJson = (~headers=Js.Dict.empty(), url: string): Js.Promise.t<Js.Json.t> =>
-  fetch(url, {headers: headers}) |> Js.Promise.then_(res =>
+let fetchJson = (~headers=Js.Dict.empty(), ~method=None, ~body=None, url: string): Js.Promise.t<
+  Js.Json.t,
+> =>
+  fetch(url, {headers: headers, method: method, body: body}) |> Js.Promise.then_(res =>
     if !Response.ok(res) {
       res->Response.text->Js.Promise.then_(text => {
         let msg = `${res->Response.status->Js.Int.toString} ${res->Response.statusText}: ${text}`

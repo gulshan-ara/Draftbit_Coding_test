@@ -19,15 +19,57 @@ const setupApp = (client: Client): express.Application => {
     res.json(rows);
   });
 
-  app.get("/margins", async (_req, res) => {
-    const { rows } = await client.query(`SELECT * FROM margin_table`);
+  app.get("/margin-padding", async (_req, res) => {
+    const { rows } = await client.query(`SELECT * FROM margin_padding_table`);
     res.json(rows);
   });
 
-  app.get("/paddings", async (_req, res) => {
-    const { rows } = await client.query(`SELECT * FROM padding_table`);
-    res.json(rows);
+  app.put("/margin-padding/:id", async (req, res) => {
+    const { id } = req.params; 
+    const updatedData = req.body;
+  
+    // Construct the SQL UPDATE query with dynamic column names
+    const query = `
+      UPDATE margin_padding_table
+      SET 
+        margin_top = $1,
+        margin_bottom = $2,
+        margin_left = $3,
+        margin_right = $4,
+        padding_top = $5,
+        padding_bottom = $6,
+        padding_left = $7,
+        padding_right = $8
+      WHERE id = $9
+      RETURNING *;  
+    `;
+  
+    const values = [
+      updatedData.margin_top,
+      updatedData.margin_bottom,
+      updatedData.margin_left,
+      updatedData.margin_right,
+      updatedData.padding_top,
+      updatedData.padding_bottom,
+      updatedData.padding_left,
+      updatedData.padding_right,
+      id, 
+    ];
+  
+    try {
+      const { rows } = await client.query(query, values);
+      console.log("updated db called");
+      if (rows.length > 0) {
+        res.json(rows[0]); 
+      } else {
+        res.status(404).json({ error: "Record not found" }); 
+      }
+    } catch (error) {
+      console.error("Error updating record:", error);
+      res.status(500).json({ error: "Database error" }); 
+    }
   });
+  
 
   return app;
 };
