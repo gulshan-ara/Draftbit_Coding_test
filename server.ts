@@ -58,7 +58,6 @@ const setupApp = (client: Client): express.Application => {
   
     try {
       const { rows } = await client.query(query, values);
-      console.log("updated db called");
       if (rows.length > 0) {
         res.json(rows[0]); 
       } else {

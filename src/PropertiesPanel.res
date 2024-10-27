@@ -135,7 +135,9 @@ module Prism = {
         ->Js.Array2.map(m =>
           <div className="margin-grid">
             <input
-              className="margin-input top"
+              className={m.margin_top === "auto"
+                ? "margin-input top"
+                : "margin-input modified-margin-input top"}
               type_="text"
               value={m.margin_top}
               onChange={(ev: ReactEvent.Form.t) =>
@@ -143,7 +145,9 @@ module Prism = {
               onBlur={_ => updateDatabase(Belt.Int.toString(m.id), Obj.magic(m))}
             />
             <input
-              className="margin-input left"
+              className={m.margin_left === "auto"
+                ? "margin-input left"
+                : "margin-input modified-margin-input left"}
               type_="text"
               value={m.margin_left}
               onChange={(ev: ReactEvent.Form.t) =>
@@ -153,7 +157,9 @@ module Prism = {
             <div className="content-box">
               <div className="padding-grid">
                 <input
-                  className="padding-input top"
+                  className={m.padding_top === "auto"
+                    ? "padding-input top"
+                    : "padding-input modified-padding-input top"}
                   type_="text"
                   value={m.padding_top}
                   onChange={(ev: ReactEvent.Form.t) =>
@@ -161,7 +167,9 @@ module Prism = {
                   onBlur={_ => updateDatabase(Belt.Int.toString(m.id), Obj.magic(m))}
                 />
                 <input
-                  className="padding-input left"
+                  className={m.padding_left === "auto"
+                    ? "padding-input left"
+                    : "padding-input modified-padding-input left"}
                   type_="text"
                   value={m.padding_left}
                   onChange={(ev: ReactEvent.Form.t) =>
@@ -169,7 +177,9 @@ module Prism = {
                   onBlur={_ => updateDatabase(Belt.Int.toString(m.id), Obj.magic(m))}
                 />
                 <input
-                  className="padding-input right"
+                  className={m.padding_right === "auto"
+                    ? "padding-input right"
+                    : "padding-input modified-padding-input right"}
                   type_="text"
                   value={m.padding_right}
                   onChange={(ev: ReactEvent.Form.t) =>
@@ -177,7 +187,9 @@ module Prism = {
                   onBlur={_ => updateDatabase(Belt.Int.toString(m.id), Obj.magic(m))}
                 />
                 <input
-                  className="padding-input bottom"
+                  className={m.padding_bottom === "auto"
+                    ? "padding-input bottom"
+                    : "padding-input modified-padding-input bottom"}
                   type_="text"
                   value={m.padding_bottom}
                   onChange={(ev: ReactEvent.Form.t) =>
@@ -187,7 +199,9 @@ module Prism = {
               </div>
             </div>
             <input
-              className="margin-input right"
+              className={m.margin_right === "auto"
+                ? "margin-input right"
+                : "margin-input modified-margin-input right"}
               type_="text"
               value={m.margin_right}
               onChange={(ev: ReactEvent.Form.t) =>
@@ -195,7 +209,9 @@ module Prism = {
               onBlur={_ => updateDatabase(Belt.Int.toString(m.id), Obj.magic(m))}
             />
             <input
-              className="margin-input bottom"
+              className={m.margin_bottom === "auto"
+                ? "margin-input bottom"
+                : "margin-input modified-margin-input bottom"}
               type_="text"
               value={m.margin_bottom}
               onChange={(ev: ReactEvent.Form.t) =>

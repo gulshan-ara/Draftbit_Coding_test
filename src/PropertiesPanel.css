@@ -56,6 +56,10 @@
   color: #fff;
 }
 
+.modified-margin-input {
+  border-bottom: 2px dashed yellow;
+}
+
 .margin-input:focus{
   background-color: #28334d;
   border: 1px solid rgb(47, 151, 243);
@@ -112,6 +116,10 @@
   border: 0px;
   text-align: center;
   color: #fff;
+}
+
+.modified-padding-input {
+  border-bottom: 2px dashed yellow;
 }
 
 .padding-input:focus {
